@@ -1,11 +1,25 @@
 <!-- quiz/templates/quiz/results.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Quiz Results</title>
-</head>
-<body>
-    <h2>Your Score: {{ score }}</h2>
-    <a href="{% url 'quiz_selection' %}">Go Back</a>
-</body>
-</html>
+
+{% extends 'quiz/base.html' %}
+
+{% block title %}Quiz Results{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h2>Quiz Results</h2>
+    <p>You scored <strong>{{ score }}</strong> out of <strong>{{ total }}</strong>.</p>
+    <div id="score-animation">
+        {% if score > 40 %}
+            <img src="{% static 'quiz/success.png' %}" alt="Great Job!" class="animated" />
+            <p class="text-success">Great Job! Keep it up!</p>
+        {% elif score > 25 %}
+            <img src="{% static 'quiz/good_job.png' %}" alt="Good Job!" class="animated" />
+            <p class="text-warning">Good job! You can do even better!</p>
+        {% else %}
+            <img src="{% static 'quiz/try_again.png' %}" alt="Try Again!" class="animated" />
+            <p class="text-danger">Don't worry! Keep trying!</p>
+        {% endif %}
+    </div>
+    <a class="btn btn-secondary mt-3" href="{% url 'quiz_selection' %}">Take Another Quiz</a>
+</div>
+{% endblock %}

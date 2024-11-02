@@ -1,11 +1,20 @@
+# quiz/urls.py
+
 from django.urls import path
-from . import views
+from .views import (
+    register,
+    login_view,
+    quiz_selection,
+    take_quiz,
+    quiz_results,
+    password_reset,
+)
 
 urlpatterns = [
-    path('register/', views.register, name='register'),
-    path('login/', views.login_view, name='login'),
-    path('quiz_selection/', views.quiz_selection, name='quiz_selection'),
-    path('take_quiz/', views.take_quiz, name='take_quiz'),
-    path('quiz_results/<int:score>/<int:total>/', views.quiz_results, name='quiz_results'),
-    path('password_reset/', views.password_reset, name='password_reset'),
+    path('register/', register, name='register'),
+    path('login/', login_view, name='login'),
+    path('quiz_selection/', quiz_selection, name='quiz_selection'),
+    path('take_quiz/', take_quiz, name='take_quiz'),  # This line defines the URL for the take_quiz view
+    path('quiz_results/<int:score>/<int:total>/', quiz_results, name='quiz_results'),
+    path('password_reset/', password_reset, name='password_reset'),
 ]
