@@ -30,8 +30,8 @@
                 </div>
                 <input type="hidden" name="score" value="{{ request.GET.score|default:0 }}">
                 <button type="submit" class="btn btn-primary">Next</button>
-                {% if question_number|add:1 < total_questions %}
-                    <button type="button" class="btn btn-secondary" onclick="window.history.back();">Previous</button>
+                {% if question_number|add:1 > 1 %}
+                    <a href="{% url 'take_quiz' %}?q={{ question_number|add:-1 }}&score={{ request.GET.score|default:0 }}" class="btn btn-secondary">Previous</a>
                 {% endif %}
             </form>
         </div>

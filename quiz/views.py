@@ -1,5 +1,3 @@
-# quiz/views.py
-
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -8,6 +6,7 @@ from .forms import UserRegistrationForm
 from .models import Question
 from django.core.mail import send_mail
 from django.conf import settings
+from django.urls import reverse  # Importing reverse function
 
 # User registration
 def register(request):
@@ -39,7 +38,7 @@ def login_view(request):
 # Quiz selection view
 @login_required
 def quiz_selection(request):
-    """Render quiz selection page for logged-in users."""
+    """Render quiz selection page for logged-in users."""    
     return render(request, 'quiz/quiz_selection.html')
 
 # Take quiz view
@@ -47,8 +46,12 @@ def quiz_selection(request):
 def take_quiz(request):
     questions = Question.objects.all()
     total_questions = questions.count()
-    question_number = request.GET.get('q', 0)  # Get the current question index
-    current_question = questions[int(question_number)] if questions else None
+    question_number = int(request.GET.get('q', 0))  # Get the current question index
+
+    if question_number < 0 or question_number >= total_questions:
+        return redirect('quiz_results', score=0, total=total_questions)
+
+    current_question = questions[question_number] if questions else None
 
     if request.method == 'POST':
         selected_answer = request.POST.get('answer')
@@ -57,8 +60,8 @@ def take_quiz(request):
         if selected_answer and int(selected_answer) == current_question.correct_option:
             score += 1
 
-        if int(question_number) < total_questions - 1:
-            return redirect(f'take_quiz?q={int(question_number) + 1}&score={score}')
+        if question_number < total_questions - 1:
+            return redirect(reverse('take_quiz') + f'?q={question_number + 1}&score={score}')
         else:
             return redirect('quiz_results', score=score, total=total_questions)
 
@@ -71,7 +74,7 @@ def take_quiz(request):
 # Quiz results view
 @login_required
 def quiz_results(request, score, total):
-    """Display the results of the quiz taken."""
+    """Display the results of the quiz taken."""    
     # Send email with the score
     send_mail(
         'Your Quiz Results',
