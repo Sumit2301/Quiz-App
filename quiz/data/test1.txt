@@ -1,0 +1,13 @@
+Question 1: What is the capital of France?
+Option 1: Paris
+Option 2: London
+Option 3: Berlin
+Option 4: Madrid
+Correct Answer: 1
+
+Question 2: What is the largest planet?
+Option 1: Earth
+Option 2: Jupiter
+Option 3: Mars
+Option 4: Saturn
+Correct Answer: 2
