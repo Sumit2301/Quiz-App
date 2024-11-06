@@ -1,14 +1,16 @@
-# Ignore the .env file (it contains sensitive information)
+# .vercelignore
+
+# Ignore sensitive environment variables file
 .env
 
-# Ignore compiled python files
+# Ignore compiled Python files
 *.pyc
 __pycache__/
 
 # Ignore local database
 db.sqlite3
 
-# Ignore Django migrations (they can be regenerated on production)
+# Ignore migrations (can be regenerated in production)
 quiz/migrations/
 
 # Ignore IDE-specific files
