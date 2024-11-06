@@ -1,0 +1,18 @@
+{
+    "builds": [
+      {
+        "src": "quiz_app/wsgi.py",
+        "use": "@vercel/python",
+        "config": {
+          "maxLambdaSize": "50mb"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "quiz_app/wsgi.py"
+      }
+    ]
+  }
+  

@@ -1,0 +1,16 @@
+# Ignore the .env file (it contains sensitive information)
+.env
+
+# Ignore compiled python files
+*.pyc
+__pycache__/
+
+# Ignore local database
+db.sqlite3
+
+# Ignore Django migrations (they can be regenerated on production)
+quiz/migrations/
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
