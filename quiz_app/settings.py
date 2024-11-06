@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'quiz_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('quiz_app'),
-        'USER': os.environ.get('root'),
-        'PASSWORD': os.environ.get('root'),
-        'HOST': os.environ.get('localhost'),
+        'NAME': os.environ.get('DB_NAME', 'quiz_db'),  # Default value is 'quiz_db'
+        'USER': os.environ.get('DB_USER', 'root'),    # Default value is 'root'
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'root'),  # Default value is 'root'
+        'HOST': os.environ.get('DB_HOST', 'localhost'),  # Default value is 'localhost'
         'PORT': '3306',
     }
 }
