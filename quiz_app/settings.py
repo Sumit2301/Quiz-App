@@ -78,10 +78,13 @@ load_dotenv()
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    'default': dj_database_url.config(
+        default="postgresql://quiz_app_db_k0k6_user:nNITz3aa7TrsjimDETz3EJyhfPSVjnVc@dpg-csls7utumphs73bhulb0-a.oregon-postgres.render.com/quiz_app_db_k0k6"
+    )
 }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
