@@ -81,12 +81,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'quiz_db'),
-        'USER': os.environ.get('DB_USER', 'quiz_user'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'root'),  # Update this to match your password
+        'USER': os.environ.get('DB_USER', 'quiz_user1'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'root'),  # Replace root with your actual password
         'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5433'),  # Ensure this matches your PostgreSQL port
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
