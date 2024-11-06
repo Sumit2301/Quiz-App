@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from dotenv import load_dotenv
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,14 +79,9 @@ load_dotenv()
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'quiz_db'),
-        'USER': os.environ.get('DB_USER', 'quiz_user1'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'root'),  # Replace root with your actual password
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
-    }
+    'default': dj_database_url.config(
+        default="postgresql://quiz_app_db_k0k6_user:nNITz3aa7TrsjimDETz3EJyhfPSVjnVc@dpg-csls7utumphs73bhulb0-a.oregon-postgres.render.com/quiz_app_db_k0k6"
+    )
 }
 
 
