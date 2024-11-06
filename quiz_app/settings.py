@@ -10,11 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from dotenv import load_dotenv
 from pathlib import Path
-import os 
+import os
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -25,12 +27,9 @@ SECRET_KEY = 'django-insecure-o&^4_j527gh$*8q@&z36k^6lfaf$k+oh91i3i863izq+n%u9gh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']  # Allow any host, change in production environment to your domain or IP
 
 # Application definition
-
-
 INSTALLED_APPS = [
     'django_extensions',
     'django.contrib.admin',
@@ -40,10 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'quiz',  # Ensure 'quiz' is added here
+    'quiz',  # Ensure 'quiz' is added here for your app
 ]
+
 MIDDLEWARE = [
-    
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -59,7 +58,7 @@ ROOT_URLCONF = 'quiz_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR,'templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,24 +73,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'quiz_app.wsgi.application'
 
+# Load environment variables
+load_dotenv()
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME', 'quiz_db'),  # Default value is 'quiz_db'
-        'USER': os.environ.get('DB_USER', 'root'),    # Default value is 'root'
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'root'),  # Default value is 'root'
-        'HOST': os.environ.get('DB_HOST', 'localhost'),  # Default value is 'localhost'
-        'PORT': '3306',
-    }
+    'default': dj_database_url.config(
+        default="postgresql://quiz_app_db_k0k6_user:nNITz3aa7TrsjimDETz3EJyhfPSVjnVc@dpg-csls7utumphs73bhulb0-a.oregon-postgres.render.com/quiz_app_db_k0k6"
+    )
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -107,45 +102,40 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# settings.py
-
+# Email settings for sending emails
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'sammarvalkar343@gmail.com'
-EMAIL_HOST_PASSWORD = 'unih zxua kryj tlhk'
+EMAIL_HOST_USER = 'sammarvalkar343@gmail.com'  # Update with your email
+EMAIL_HOST_PASSWORD = 'unih zxua kryj tlhk'  # Update with your email password or use environment variables for security
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
 STATIC_URL = '/static/'
+
+# Static files directory (Make sure to adjust as needed)
 STATICFILES_DIRS = [
     BASE_DIR / "quiz/static",  # Adjust as needed for your app's static files
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Add this line
 
-# Use WhiteNoise to serve static files in production
+# Collect static files into one directory for production
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Use WhiteNoise to serve static files in production (for handling compressed static files)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# For local development, using the console backend to print email messages
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
