@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
+import os 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'quiz_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'quiz_db',
-        'USER': 'root',  
-        'PASSWORD': 'root', 
-        'HOST': 'localhost',
+        'NAME': os.environ.get('quiz_app'),
+        'USER': os.environ.get('root'),
+        'PASSWORD': os.environ.get('root'),
+        'HOST': os.environ.get('localhost'),
         'PORT': '3306',
     }
 }
